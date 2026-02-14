@@ -11,20 +11,20 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
     const [phase, setPhase] = useState<"entry" | "open" | "reveal">("entry");
 
     useEffect(() => {
-        // Stage 1: Entry from left to center (duration 1.5s)
+        // Stage 1: Entry from left to center (slower: 3s)
         const timer1 = setTimeout(() => {
             setPhase("open");
-        }, 1500);
+        }, 3000);
 
-        // Stage 2: Open flap (duration 1s)
+        // Stage 2: Open flap (slower: 2s)
         const timer2 = setTimeout(() => {
             setPhase("reveal");
-        }, 2800);
+        }, 6000);
 
-        // Stage 3: Complete reveal (duration 1s after reveal starts)
+        // Stage 3: Complete reveal (slower: 2s after reveal starts)
         const timer3 = setTimeout(() => {
             onComplete();
-        }, 4000);
+        }, 8500);
 
         return () => {
             clearTimeout(timer1);
@@ -39,10 +39,10 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                 {phase !== "reveal" && (
                     <motion.div
                         className="envelope-wrapper"
-                        initial={{ x: "-100vw", rotate: -10 }}
+                        initial={{ x: "-120vw", rotate: -15 }}
                         animate={{ x: 0, rotate: 0 }}
-                        exit={{ opacity: 0, scale: 2, transition: { duration: 0.8 } }}
-                        transition={{ type: "spring", stiffness: 50, damping: 15 }}
+                        exit={{ opacity: 0, scale: 2.5, transition: { duration: 1.5 } }}
+                        transition={{ duration: 3, ease: "easeInOut" }}
                     >
                         <div className="envelope">
                             {/* Top Flap */}
@@ -50,16 +50,16 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                                 className="flap"
                                 initial={{ rotateX: 0 }}
                                 animate={{ rotateX: phase === "open" ? 180 : 0 }}
-                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
                             />
                             {/* Envelope Body (Pocket) */}
                             <div className="pocket" />
-                            {/* Paper inside (optional detail) */}
+                            {/* Paper inside */}
                             <motion.div
                                 className="paper"
                                 initial={{ y: 0 }}
-                                animate={{ y: phase === "open" ? -40 : 0 }}
-                                transition={{ delay: 0.5, duration: 0.5 }}
+                                animate={{ y: phase === "open" ? -60 : 0 }}
+                                transition={{ delay: 1, duration: 1 }}
                             />
                         </div>
                     </motion.div>
@@ -83,19 +83,19 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
 
         .envelope-wrapper {
           position: relative;
-          width: 80vw;
-          max-width: 600px;
+          width: 70vw;
           aspect-ratio: 3/2;
-          perspective: 1000px;
+          perspective: 2000px;
         }
 
         .envelope {
           position: relative;
           width: 100%;
           height: 100%;
-          background: #f0f0f0;
-          border: 2px solid #ddd;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          background: #fdf6e3;
+          border: 3px solid #d3c6aa;
+          box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+          border-radius: 4px;
         }
 
         .flap {
@@ -104,8 +104,8 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           left: 0;
           width: 100%;
           height: 50%;
-          background: #e0e0e0;
-          border: 1px solid #ccc;
+          background: #eee8d5;
+          border: 1px solid #d3c6aa;
           z-index: 3;
           transform-origin: top;
           clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -117,10 +117,10 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           left: 0;
           width: 100%;
           height: 100%;
-          background: #fdfdfd;
+          background: #fdf6e3;
           z-index: 2;
           clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
-          border-top: 1px solid #eee;
+          border-top: 1px solid #eee8d5;
         }
 
         .paper {
@@ -131,7 +131,8 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           height: 80%;
           background: white;
           z-index: 1;
-          box-shadow: 0 0 10px rgba(0,0,0,0.05);
+          box-shadow: 0 0 15px rgba(0,0,0,0.05);
+          border-radius: 2px;
         }
       `}</style>
         </div>
