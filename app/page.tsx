@@ -253,6 +253,12 @@ export default function Home() {
                       setNoClicks2(0);
                       setPenaltyClicks(0);
                       setPenaltyStage("none");
+                      setHasMoved1(false);
+                      setHasMoved2(false);
+                      setHasMoved3(false);
+                      setNoButtonPos({ x: 0, y: 0 });
+                      setNoButtonPos2({ x: 0, y: 0 });
+                      setNoButtonPos3({ x: 0, y: 0 });
                     }}
                   >
                     Volver a ver
