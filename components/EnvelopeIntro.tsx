@@ -19,16 +19,6 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
     return (
         <div className="envelope-container">
             <div className="scene">
-                {/* Celebration Particles */}
-                <div className="particles">
-                    {[...Array(12)].map((_, i) => (
-                        <div key={`heart-${i}`} className={`particle heart heart-${i}`}>❤️</div>
-                    ))}
-                    {[...Array(12)].map((_, i) => (
-                        <div key={`sparkle-${i}`} className={`particle sparkle sparkle-${i}`}>✨</div>
-                    ))}
-                </div>
-
                 <div className="envelope">
                     <div className="bottom-left"></div>
                     <div className="bottom-right"></div>
@@ -36,10 +26,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                 </div>
 
                 <div className="letter">
-                    <div className="letter-text">
-                        <p>Para Noe...</p>
-                        <p>Con mucho amor</p>
-                    </div>
+                    <div className="letter-text">Para Noe :3</div>
                 </div>
                 <div className="shadow"></div>
             </div>
@@ -72,53 +59,6 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     0% { transform: translateX(-120vw) rotateY(20deg); }
                     100% { transform: translateX(0); }
                 }
-
-                /* Particles Logic */
-                .particles {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    z-index: 4;
-                }
-
-                .particle {
-                    position: absolute;
-                    opacity: 0;
-                    pointer-events: none;
-                }
-
-                .heart { font-size: 20px; }
-                .sparkle { font-size: 15px; }
-
-                ${[...Array(12)].map((_, i) => `
-                    .heart-${i} {
-                        animation: explodeHeart-${i} 2.5s ease-out forwards 4.2s;
-                    }
-                    @keyframes explodeHeart-${i} {
-                        0% { transform: translate(0, 0) scale(0); opacity: 0; }
-                        20% { opacity: 1; }
-                        100% { 
-                            transform: translate(${(Math.random() - 0.5) * 400}px, ${(Math.random() - 0.7) * 400}px) rotate(${Math.random() * 360}deg) scale(1.5);
-                            opacity: 0;
-                        }
-                    }
-                `).join('')}
-
-                ${[...Array(12)].map((_, i) => `
-                    .sparkle-${i} {
-                        animation: explodeSparkle-${i} 2.5s ease-out forwards 4.3s;
-                    }
-                    @keyframes explodeSparkle-${i} {
-                        0% { transform: translate(0, 0) scale(0); opacity: 0; }
-                        20% { opacity: 1; }
-                        100% { 
-                            transform: translate(${(Math.random() - 0.5) * 500}px, ${(Math.random() - 0.7) * 500}px) scale(1.2);
-                            opacity: 0;
-                        }
-                    }
-                `).join('')}
 
                 .envelope {
                     position: relative;
@@ -201,7 +141,6 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    color: white;
                     animation:
                         riseLetter 1.5s ease-out forwards 4.2s,
                         bringFront 0.1s forwards 4.5s,
@@ -209,17 +148,13 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                 }
 
                 .letter-text {
-                    text-align: center;
-                    animation: fadeOutText 0.5s ease forwards 6s;
-                }
-
-                .letter-text p {
-                    margin: 5px 0;
-                    font-size: 1.2rem;
+                    color: white;
+                    font-size: 1.5rem;
                     font-weight: 500;
+                    animation: fadeTextOut 0.5s ease forwards 5.8s;
                 }
 
-                @keyframes fadeOutText {
+                @keyframes fadeTextOut {
                     to { opacity: 0; }
                 }
 
