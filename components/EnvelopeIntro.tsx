@@ -7,18 +7,40 @@ interface EnvelopeIntroProps {
 }
 
 export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
+    const [showEffects, setShowEffects] = useState(false);
+
     useEffect(() => {
+        // Trigger effects when flap starts opening (2s)
+        const effectTimer = setTimeout(() => setShowEffects(true), 2500);
+
         // Total duration increased to account for the new sequence
         const timer = setTimeout(() => {
             onComplete();
         }, 7600);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(effectTimer);
+            clearTimeout(timer);
+        };
     }, [onComplete]);
 
     return (
         <div className="envelope-container">
             <div className="scene">
+                {showEffects && (
+                    <div className="celebration-layer">
+                        {Array.from({ length: 20 }).map((_, i) => (
+                            <div key={`heart-${i}`} className={`particle heart p-${i % 5}`} />
+                        ))}
+                        {Array.from({ length: 20 }).map((_, i) => (
+                            <div key={`spark-${i}`} className={`particle spark s-${i % 5}`} />
+                        ))}
+                        {Array.from({ length: 15 }).map((_, i) => (
+                            <div key={`star-${i}`} className={`particle star st-${i % 5}`} />
+                        ))}
+                    </div>
+                )}
+
                 <div className="envelope">
                     <div className="bottom-left"></div>
                     <div className="bottom-right"></div>
@@ -58,29 +80,68 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     100% { transform: translateX(0); }
                 }
 
-                .envelope {
-                    position: relative;
-                    width: 320px;
-                    height: 200px;
-                    background: linear-gradient(to bottom, #ffffff, #ececec);
-                    border-radius: 6px;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 -5px 10px rgba(0, 0, 0, 0.1);
-                    z-index: 3;
-                    animation: 
-                        sinkEnvelope 1s ease forwards 3.2s,
-                        fadeEnvelope 1.2s ease forwards 6s;
+                /* CELEBRATION EFFECTS */
+                .celebration-layer {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                    z-index: 10;
                 }
 
-                @keyframes sinkEnvelope {
-                    to { transform: translateY(80px); }
+                .particle {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    opacity: 0;
                 }
 
-                @keyframes fadeEnvelope {
-                    to {
+                .heart::before {
+                    content: "❤️";
+                    font-size: 20px;
+                }
+                .spark::before {
+                    content: "✨";
+                    font-size: 15px;
+                }
+                .star::before {
+                    content: "🌸";
+                    font-size: 18px;
+                }
+
+                .particle {
+                    animation: explode 2s ease-out forwards;
+                }
+
+                @keyframes explode {
+                    0% {
+                        transform: translate(-50%, -50%) scale(0);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(1.5);
                         opacity: 0;
-                        transform: translateY(130px);
                     }
                 }
+
+                /* Randomized positions using CSS variables or nth-child logic */
+                .p-0 { --tx: -150px; --ty: -200px; --tr: 45deg; animation-delay: 0.1s; }
+                .p-1 { --tx: 150px; --ty: -180px; --tr: -30deg; animation-delay: 0.2s; }
+                .p-2 { --tx: -100px; --ty: -250px; --tr: 90deg; animation-delay: 0.15s; }
+                .p-3 { --tx: 80px; --ty: -270px; --tr: -15deg; animation-delay: 0.25s; }
+                .p-4 { --tx: 0px; --ty: -300px; --tr: 0deg; animation-delay: 0.1s; }
+
+                .s-0 { --tx: -200px; --ty: -100px; --tr: 20deg; animation-delay: 0.3s; }
+                .s-1 { --tx: 200px; --ty: -120px; --tr: -50deg; animation-delay: 0.35s; }
+                .s-2 { --tx: -120px; --ty: -50px; --tr: 10deg; animation-delay: 0.4s; }
+                .s-3 { --tx: 180px; --ty: -80px; --tr: -10deg; animation-delay: 0.45s; }
+                .s-4 { --tx: 50px; --ty: -150px; --tr: 30deg; animation-delay: 0.5s; }
+
+                .st-0 { --tx: -80px; --ty: -120px; --tr: 120deg; animation-delay: 0.1s; }
+                .st-1 { --tx: 90px; --ty: -130px; --tr: -90deg; animation-delay: 0.2s; }
+                .st-2 { --tx: -30px; --ty: -180px; --tr: 60deg; animation-delay: 0.15s; }
+                .st-3 { --tx: 40px; --ty: -200px; --tr: -45deg; animation-delay: 0.25s; }
+                .st-4 { --tx: 10px; --ty: -250px; --tr: 10deg; animation-delay: 0.1s; }
 
                 .bottom-left, .bottom-right {
                     position: absolute;
