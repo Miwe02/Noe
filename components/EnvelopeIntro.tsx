@@ -1,45 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 interface EnvelopeIntroProps {
     onComplete: () => void;
 }
 
 export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
-    const [showEffects, setShowEffects] = useState(false);
-
     useEffect(() => {
-        // Trigger effects when flap starts opening (2s)
-        const effectTimer = setTimeout(() => setShowEffects(true), 2500);
-
         // Total duration increased to account for the new sequence
         const timer = setTimeout(() => {
             onComplete();
         }, 7600);
 
-        return () => {
-            clearTimeout(effectTimer);
-            clearTimeout(timer);
-        };
+        return () => clearTimeout(timer);
     }, [onComplete]);
 
     return (
         <div className="envelope-container">
             <div className="scene">
-                {showEffects && (
-                    <div className="celebration-layer">
-                        {Array.from({ length: 20 }).map((_, i) => (
-                            <div key={`heart-${i}`} className={`particle heart p-${i % 5}`} />
-                        ))}
-                        {Array.from({ length: 20 }).map((_, i) => (
-                            <div key={`spark-${i}`} className={`particle spark s-${i % 5}`} />
-                        ))}
-                        {Array.from({ length: 15 }).map((_, i) => (
-                            <div key={`star-${i}`} className={`particle star st-${i % 5}`} />
-                        ))}
-                    </div>
-                )}
+                {/* Celebration Particles */}
+                <div className="particles">
+                    {[...Array(12)].map((_, i) => (
+                        <div key={`heart-${i}`} className={`particle heart heart-${i}`}>❤️</div>
+                    ))}
+                    {[...Array(12)].map((_, i) => (
+                        <div key={`sparkle-${i}`} className={`particle sparkle sparkle-${i}`}>✨</div>
+                    ))}
+                </div>
 
                 <div className="envelope">
                     <div className="bottom-left"></div>
@@ -48,7 +36,10 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                 </div>
 
                 <div className="letter">
-                    <div className="letter-text">Para Noe :3</div>
+                    <div className="letter-text">
+                        <p>Para Noe...</p>
+                        <p>Con mucho amor</p>
+                    </div>
                 </div>
                 <div className="shadow"></div>
             </div>
@@ -82,68 +73,76 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     100% { transform: translateX(0); }
                 }
 
-                /* CELEBRATION EFFECTS */
-                .celebration-layer {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    pointer-events: none;
-                    z-index: 10;
-                }
-
-                .particle {
+                /* Particles Logic */
+                .particles {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    opacity: 0;
-                }
-
-                .heart::before {
-                    content: "❤️";
-                    font-size: 20px;
-                }
-                .spark::before {
-                    content: "✨";
-                    font-size: 15px;
-                }
-                .star::before {
-                    content: "🌸";
-                    font-size: 18px;
+                    width: 0;
+                    height: 0;
+                    z-index: 4;
                 }
 
                 .particle {
-                    animation: explode 2s ease-out forwards;
+                    position: absolute;
+                    opacity: 0;
+                    pointer-events: none;
                 }
 
-                @keyframes explode {
-                    0% {
-                        transform: translate(-50%, -50%) scale(0);
-                        opacity: 1;
+                .heart { font-size: 20px; }
+                .sparkle { font-size: 15px; }
+
+                ${[...Array(12)].map((_, i) => `
+                    .heart-${i} {
+                        animation: explodeHeart-${i} 2.5s ease-out forwards 4.2s;
                     }
-                    100% {
-                        transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(1.5);
+                    @keyframes explodeHeart-${i} {
+                        0% { transform: translate(0, 0) scale(0); opacity: 0; }
+                        20% { opacity: 1; }
+                        100% { 
+                            transform: translate(${(Math.random() - 0.5) * 400}px, ${(Math.random() - 0.7) * 400}px) rotate(${Math.random() * 360}deg) scale(1.5);
+                            opacity: 0;
+                        }
+                    }
+                `).join('')}
+
+                ${[...Array(12)].map((_, i) => `
+                    .sparkle-${i} {
+                        animation: explodeSparkle-${i} 2.5s ease-out forwards 4.3s;
+                    }
+                    @keyframes explodeSparkle-${i} {
+                        0% { transform: translate(0, 0) scale(0); opacity: 0; }
+                        20% { opacity: 1; }
+                        100% { 
+                            transform: translate(${(Math.random() - 0.5) * 500}px, ${(Math.random() - 0.7) * 500}px) scale(1.2);
+                            opacity: 0;
+                        }
+                    }
+                `).join('')}
+
+                .envelope {
+                    position: relative;
+                    width: 320px;
+                    height: 200px;
+                    background: linear-gradient(to bottom, #ffffff, #ececec);
+                    border-radius: 6px;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+                    z-index: 3;
+                    animation: 
+                        sinkEnvelope 1s ease forwards 3.2s,
+                        fadeEnvelope 1.2s ease forwards 6s;
+                }
+
+                @keyframes sinkEnvelope {
+                    to { transform: translateY(80px); }
+                }
+
+                @keyframes fadeEnvelope {
+                    to {
                         opacity: 0;
+                        transform: translateY(130px);
                     }
                 }
-
-                /* Randomized positions using CSS variables or nth-child logic */
-                .p-0 { --tx: -150px; --ty: -200px; --tr: 45deg; animation-delay: 0.1s; }
-                .p-1 { --tx: 150px; --ty: -180px; --tr: -30deg; animation-delay: 0.2s; }
-                .p-2 { --tx: -100px; --ty: -250px; --tr: 90deg; animation-delay: 0.15s; }
-                .p-3 { --tx: 80px; --ty: -270px; --tr: -15deg; animation-delay: 0.25s; }
-                .p-4 { --tx: 0px; --ty: -300px; --tr: 0deg; animation-delay: 0.1s; }
-
-                .s-0 { --tx: -200px; --ty: -100px; --tr: 20deg; animation-delay: 0.3s; }
-                .s-1 { --tx: 200px; --ty: -120px; --tr: -50deg; animation-delay: 0.35s; }
-                .s-2 { --tx: -120px; --ty: -50px; --tr: 10deg; animation-delay: 0.4s; }
-                .s-3 { --tx: 180px; --ty: -80px; --tr: -10deg; animation-delay: 0.45s; }
-                .s-4 { --tx: 50px; --ty: -150px; --tr: 30deg; animation-delay: 0.5s; }
-
-                .st-0 { --tx: -80px; --ty: -120px; --tr: 120deg; animation-delay: 0.1s; }
-                .st-1 { --tx: 90px; --ty: -130px; --tr: -90deg; animation-delay: 0.2s; }
-                .st-2 { --tx: -30px; --ty: -180px; --tr: 60deg; animation-delay: 0.15s; }
-                .st-3 { --tx: 40px; --ty: -200px; --tr: -45deg; animation-delay: 0.25s; }
-                .st-4 { --tx: 10px; --ty: -250px; --tr: 10deg; animation-delay: 0.1s; }
 
                 .bottom-left, .bottom-right {
                     position: absolute;
@@ -202,6 +201,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    color: white;
                     animation:
                         riseLetter 1.5s ease-out forwards 4.2s,
                         bringFront 0.1s forwards 4.5s,
@@ -209,12 +209,14 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                 }
 
                 .letter-text {
-                    font-family: Arial, sans-serif;
-                    font-weight: bold;
-                    font-size: 24px;
-                    color: white;
-                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    text-align: center;
                     animation: fadeOutText 0.5s ease forwards 6s;
+                }
+
+                .letter-text p {
+                    margin: 5px 0;
+                    font-size: 1.2rem;
+                    font-weight: 500;
                 }
 
                 @keyframes fadeOutText {
@@ -241,8 +243,6 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
 
                 @keyframes zoomFull {
                     0% {
-                        top: -15px;
-                        left: 45%;
                         transform: translateX(-50%) translateY(-150px) scale(1);
                         border-radius: 8px;
                     }
