@@ -24,22 +24,23 @@ export default function Home() {
   };
 
   const moveButton = () => {
-    const randomX = Math.random() * 200 - 100;
-    const randomY = Math.random() * 200 - 100;
+    // Smaller range to keep it within common screen bounds
+    const randomX = Math.random() * 160 - 80; // -80 to 80
+    const randomY = Math.random() * 160 - 80; // -80 to 80
     setNoButtonPos({ x: randomX, y: randomY });
   };
 
   const moveButton2 = () => {
-    // Larger displacement for the second unclickable button
-    const randomX = Math.random() * 600 - 300; // -300px to 300px
-    const randomY = Math.random() * 600 - 300; // -300px to 300px
+    // Larger but still constrained displacement
+    const randomX = Math.random() * 300 - 150; // -150 to 150
+    const randomY = Math.random() * 300 - 150; // -150 to 150
     setNoButtonPos2({ x: randomX, y: randomY });
   };
 
   const handleNoClick = () => {
     setNoClicks((prev) => {
       const updated = prev + 1;
-      if (updated >= 2) {
+      if (updated >= 1) { // Advance on FIRST click
         setStage("stage2");
       }
       return updated;
