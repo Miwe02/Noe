@@ -35,7 +35,8 @@ export default function Home() {
             <h1>Oli seyor lindo :3</h1>
             <motion.p
               onClick={nextStage}
-              style={{ fontSize: "1.5rem", marginTop: "1rem", display: "inline-block" }}
+              className="teaser-text"
+              style={{ display: "inline-block" }}
               animate={{ rotate: [-10, 10, -10] }}
               transition={{
                 duration: 2,
