@@ -229,7 +229,7 @@ export default function Home() {
               >
                 <div className="penalty-content">
                   <img
-                    src="https://i.redd.it/gid9of9pqw981.png"
+                    src="/angry-cat.webp"
                     alt="Angry Cat Template"
                   />
                   <h3>Opción incorrecta, escoje de nuevo</h3>
