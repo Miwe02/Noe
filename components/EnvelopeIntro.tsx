@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface EnvelopeIntroProps {
     onComplete: () => void;
@@ -47,7 +47,9 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     <div className="flap"></div>
                 </div>
 
-                <div className="letter"></div>
+                <div className="letter">
+                    <div className="letter-text">Para Noe :3</div>
+                </div>
                 <div className="shadow"></div>
             </div>
 
@@ -197,10 +199,21 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
                     opacity: 0;
                     z-index: 2;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     animation:
                         riseLetter 1.5s ease-out forwards 4.2s,
                         bringFront 0.1s forwards 4.5s,
                         zoomFull 1.6s ease-in-out forwards 6s;
+                }
+
+                .letter-text {
+                    font-family: Arial, sans-serif;
+                    font-weight: bold;
+                    font-size: 24px;
+                    color: white;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
                 }
 
                 @keyframes riseLetter {
