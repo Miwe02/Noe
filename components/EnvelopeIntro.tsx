@@ -8,10 +8,10 @@ interface EnvelopeIntroProps {
 
 export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
     useEffect(() => {
-        // The total animation time is roughly 6.6s (5s delay + 1.6s zoom)
+        // Total duration increased to account for the new sequence
         const timer = setTimeout(() => {
             onComplete();
-        }, 6600);
+        }, 7600);
 
         return () => clearTimeout(timer);
     }, [onComplete]);
@@ -66,14 +66,19 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     border-radius: 6px;
                     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 -5px 10px rgba(0, 0, 0, 0.1);
                     z-index: 3;
-                    animation: fadeEnvelope 1.2s ease forwards;
-                    animation-delay: 5s;
+                    animation: 
+                        sinkEnvelope 1s ease forwards 3.2s,
+                        fadeEnvelope 1.2s ease forwards 6s;
+                }
+
+                @keyframes sinkEnvelope {
+                    to { transform: translateY(80px); }
                 }
 
                 @keyframes fadeEnvelope {
                     to {
                         opacity: 0;
-                        transform: translateY(50px);
+                        transform: translateY(130px);
                     }
                 }
 
@@ -100,8 +105,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     width: 100%;
                     height: 100%;
                     transform-origin: top center;
-                    animation: openFlap 1.2s ease forwards;
-                    animation-delay: 2s;
+                    animation: openFlap 1.2s ease forwards 2s;
                 }
 
                 .flap::before {
@@ -126,26 +130,30 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     height: 170px;
                     left: 45%;
                     top: -15px;
-                    transform: translateX(-50%) translateY(40px) scale(1);
+                    transform: translateX(-50%) translateY(40px) scale(0.9);
                     background: linear-gradient(135deg, #004e92 0%, #000428 100%);
                     border-radius: 8px;
                     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
                     opacity: 0;
                     z-index: 2;
                     animation:
-                        showLetter 0.1s forwards 3.2s,
-                        riseLetter 1.3s ease forwards 3.2s,
-                        bringFront 0.1s forwards 3.5s,
-                        zoomFull 1.6s ease-in-out forwards 5s;
-                }
-
-                @keyframes showLetter {
-                    to { opacity: 1; }
+                        riseLetter 1.5s ease-out forwards 4.2s,
+                        bringFront 0.1s forwards 4.5s,
+                        zoomFull 1.6s ease-in-out forwards 6s;
                 }
 
                 @keyframes riseLetter {
-                    0% { transform: translateX(-50%) translateY(40px) scale(1); }
-                    100% { transform: translateX(-50%) translateY(-120px) scale(1); }
+                    0% {
+                        opacity: 0;
+                        transform: translateX(-50%) translateY(40px) scale(0.9);
+                    }
+                    30% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(-150px) scale(1);
+                    }
                 }
 
                 @keyframes bringFront {
@@ -154,7 +162,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
 
                 @keyframes zoomFull {
                     0% {
-                        transform: translateX(-50%) translateY(-120px) scale(1);
+                        transform: translateX(-50%) translateY(-150px) scale(1);
                         border-radius: 8px;
                     }
                     100% {
@@ -174,7 +182,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     left: 50%;
                     transform: translateX(-50%);
                     filter: blur(6px);
-                    animation: fadeShadow 1.2s ease forwards 5s;
+                    animation: fadeShadow 1.2s ease forwards 6s;
                 }
 
                 @keyframes fadeShadow {
