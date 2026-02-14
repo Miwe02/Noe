@@ -16,8 +16,7 @@ export default function Home() {
   const nextStage = () => {
     if (stage === "intro") setStage("m1");
     else if (stage === "m1") setStage("m2");
-    else if (stage === "m2") setStage("m3");
-    else if (stage === "m3") setStage("final");
+    else if (stage === "m2") setStage("final");
   };
 
   return (
@@ -33,7 +32,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="content-wrapper"
           >
-            <h1>oli seyor lindo</h1>
+            <h1>Oli seyor lindo :3</h1>
             <motion.p
               onClick={nextStage}
               style={{ fontSize: "1.5rem", marginTop: "1rem", display: "inline-block" }}
@@ -77,20 +76,6 @@ export default function Home() {
           </motion.div>
         )}
 
-        {stage === "m3" && (
-          <motion.div
-            key="m3"
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="content-wrapper"
-            onClick={nextStage}
-          >
-            <h2>¿Sabes que me gustas mucho?</h2>
-          </motion.div>
-        )}
-
         {stage === "final" && (
           <motion.div
             key="final"
@@ -99,7 +84,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="content-wrapper"
           >
-            <h2>😍</h2>
+            <h2>¿Sabes que me gustas mucho? 😍</h2>
             <div className="button-group">
               <button className="btn-yes">Sí clarooo</button>
               <button className="btn-no">No :c</button>
