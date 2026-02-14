@@ -61,12 +61,11 @@ export default function Home() {
     setPenaltyClicks((prev) => {
       const updated = prev + 1;
       if (updated >= 3) {
-        setPenaltyStage("angry");
-        setTimeout(() => setPenaltyStage("gun"), 3000);
+        setPenaltyStage("angry"); // We'll just use one stage now
         setTimeout(() => {
           setPenaltyStage("none");
           setPenaltyClicks(0);
-        }, 8000);
+        }, 5000);
       }
       return updated;
     });
@@ -217,15 +216,13 @@ export default function Home() {
                 exit={{ opacity: 0 }}
                 className="penalty-overlay"
               >
-                {penaltyStage === "angry" && (
-                  <img src="https://media1.tenor.com/m/-legwEzkXG0AAAAC/angry-cat.gif" alt="Angry Cat" />
-                )}
-                {penaltyStage === "gun" && (
-                  <div className="penalty-content">
-                    <img src="https://media1.tenor.com/m/dhuQV_msfiUAAAAd/cat-gun.gif" alt="Cat with Gun" />
-                    <h3>Opción incorrecta, escoje de nuevo</h3>
-                  </div>
-                )}
+                <div className="penalty-content">
+                  <img
+                    src="https://preview.redd.it/gonna-post-my-cat-template-without-the-text-here-for-no-v0-gid9of9pqw981.png"
+                    alt="Angry Cat Template"
+                  />
+                  <h3>Opción incorrecta, escoje de nuevo</h3>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
