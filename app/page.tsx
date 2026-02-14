@@ -78,7 +78,7 @@ export default function Home() {
   const handleFinalNoClick = () => {
     setPenaltyClicks((prev) => {
       const updated = prev + 1;
-      if (updated >= 2) { // Now requires only 2 clicks
+      if (updated >= 1) { // back to 1 click
         setPenaltyStage("angry");
         setTimeout(() => {
           setPenaltyStage("none");
