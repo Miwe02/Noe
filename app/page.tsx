@@ -34,7 +34,7 @@ export default function Home() {
             className="content-wrapper"
           >
             <h1>oli seyor lindo</h1>
-            <p
+            <motion.p
               onClick={nextStage}
               style={{ fontSize: "1.5rem", marginTop: "1rem", display: "inline-block" }}
               animate={{ rotate: [-10, 10, -10] }}
@@ -45,7 +45,7 @@ export default function Home() {
               }}
             >
               Quiero decirte algo
-            </p>
+            </motion.p>
           </motion.div>
         )}
 
