@@ -7,8 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
-  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final">("intro");
+  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final" | "stage2">("intro");
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
+  const [noClicks, setNoClicks] = useState(0);
 
   if (showIntro) {
     return <EnvelopeIntro onComplete={() => setShowIntro(false)} />;
@@ -18,12 +19,23 @@ export default function Home() {
     if (stage === "intro") setStage("m1");
     else if (stage === "m1") setStage("m2");
     else if (stage === "m2") setStage("final");
+    else if (stage === "final") setStage("stage2");
   };
 
   const moveButton = () => {
     const randomX = Math.random() * 200 - 100;
     const randomY = Math.random() * 200 - 100;
     setNoButtonPos({ x: randomX, y: randomY });
+  };
+
+  const handleNoClick = () => {
+    setNoClicks((prev) => {
+      const updated = prev + 1;
+      if (updated >= 2) {
+        setStage("stage2");
+      }
+      return updated;
+    });
   };
 
   return (
@@ -89,20 +101,38 @@ export default function Home() {
             key="final"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
             transition={{ duration: 0.8 }}
             className="content-wrapper"
           >
             <h2>¿Sabes que me gustas mucho? 😻</h2>
             <div className="button-group">
-              <button className="btn-yes">Sí clarooo</button>
+              <button className="btn-yes" onClick={() => setStage("stage2")}>Sí clarooo</button>
               <motion.button
                 className="btn-no"
                 animate={{ x: noButtonPos.x, y: noButtonPos.y }}
                 onMouseEnter={moveButton}
+                onClick={handleNoClick}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 No :c
               </motion.button>
+            </div>
+          </motion.div>
+        )}
+
+        {stage === "stage2" && (
+          <motion.div
+            key="stage2"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="content-wrapper"
+          >
+            <h2>Para mí ser feliz no tenía significado hasta que te conocí, lo sabías? ✨</h2>
+            <div className="button-group">
+              <button className="btn-yes">Sí miamor</button>
+              <button className="btn-no">Prefería no saberlo</button>
             </div>
           </motion.div>
         )}
