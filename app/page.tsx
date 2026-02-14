@@ -201,7 +201,7 @@ export default function Home() {
                 animate={{ y: 0, opacity: 1 }}
                 className="content-wrapper"
               >
-                <h2>Quieres pasar el resto de nuestras vidas juntos?</h2>
+                <h2>Quieres pasar el resto de nuestras vidas juntos? ❤️</h2>
                 <div className="button-group">
                   <button className="btn-yes" onClick={() => setStage("success")}>Sí, te amo</button>
                   <motion.button
@@ -214,6 +214,36 @@ export default function Home() {
                     No, ni loco
                   </motion.button>
                 </div>
+              </motion.div>
+            )}
+
+            {stage === "success" && (
+              <motion.div
+                key="success"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="content-wrapper success-content"
+              >
+                <h2 className="success-message">
+                  Gracias por tanto mi amor, pronto estaremos juntos, feliz San Valentín :3
+                </h2>
+                <div className="signature">
+                  <p>Siempré tuyo,</p>
+                  <p className="signature-name">Miwe</p>
+                </div>
+                <button
+                  className="replay-btn"
+                  onClick={() => {
+                    setShowIntro(true);
+                    setStage("intro");
+                    setNoClicks1(0);
+                    setNoClicks2(0);
+                    setPenaltyClicks(0);
+                  }}
+                >
+                  Volver a ver
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -234,22 +264,6 @@ export default function Home() {
                   />
                   <h3>Opción incorrecta, escoje de nuevo</h3>
                 </div>
-                <div className="signature">
-                  <p>Siempré tuyo,</p>
-                  <p className="signature-name">Miwe</p>
-                </div>
-                <button
-                  className="replay-btn"
-                  onClick={() => {
-                    setShowIntro(true);
-                    setStage("intro");
-                    setNoClicks1(0);
-                    setNoClicks2(0);
-                    setPenaltyClicks(0);
-                  }}
-                >
-                  Volver a ver
-                </button>
               </motion.div>
             )}
           </AnimatePresence>
