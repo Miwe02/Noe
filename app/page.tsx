@@ -18,6 +18,7 @@ export default function Home() {
   const [hasMoved1, setHasMoved1] = useState(false);
   const [hasMoved2, setHasMoved2] = useState(false);
   const [hasMoved3, setHasMoved3] = useState(false);
+  const [firstPenaltySeen, setFirstPenaltySeen] = useState(false);
 
   if (showIntro) {
     return <EnvelopeIntro onComplete={() => setShowIntro(false)} />;
@@ -83,6 +84,7 @@ export default function Home() {
         setTimeout(() => {
           setPenaltyStage("none");
           setPenaltyClicks(0);
+          setFirstPenaltySeen(true); // Once the first full 5s passes, allow skipping in future
         }, 5000);
       }
       return updated;
@@ -275,10 +277,12 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="penalty-overlay"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: firstPenaltySeen ? "pointer" : "default" }}
                   onClick={() => {
-                    setPenaltyStage("none");
-                    setPenaltyClicks(0);
+                    if (firstPenaltySeen) {
+                      setPenaltyStage("none");
+                      setPenaltyClicks(0);
+                    }
                   }}
                 >
                   <div className="penalty-content">
