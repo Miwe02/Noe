@@ -92,10 +92,11 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           position: relative;
           width: 100%;
           height: 100%;
-          background: #fdf6e3;
-          border: 3px solid #d3c6aa;
-          box-shadow: 0 15px 45px rgba(0,0,0,0.15);
-          border-radius: 4px;
+          background: #ffffff;
+          border: 1px solid #e0e0e0;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          overflow: hidden;
         }
 
         .flap {
@@ -103,12 +104,25 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           top: 0;
           left: 0;
           width: 100%;
-          height: 50%;
-          background: #eee8d5;
-          border: 1px solid #d3c6aa;
+          height: 100%;
+          background: #f8f9fa;
+          border-bottom: 2px solid #e9ecef;
           z-index: 3;
           transform-origin: top;
-          clip-path: polygon(0 0, 100% 0, 50% 100%);
+          /* Removed triangle clip-path */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .flap::after {
+          content: "";
+          width: 40px;
+          height: 4px;
+          background: #dee2e6;
+          border-radius: 2px;
+          position: absolute;
+          bottom: 20px;
         }
 
         .pocket {
@@ -117,22 +131,24 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           left: 0;
           width: 100%;
           height: 100%;
-          background: #fdf6e3;
+          background: #ffffff;
           z-index: 2;
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 50% 50%);
-          border-top: 1px solid #eee8d5;
+          /* Removed triangle clip-path */
         }
 
         .paper {
           position: absolute;
-          top: 10%;
-          left: 5%;
-          width: 90%;
-          height: 80%;
-          background: white;
+          top: 15%;
+          left: 10%;
+          width: 80%;
+          height: 70%;
+          background: #f1f3f5;
           z-index: 1;
-          box-shadow: 0 0 15px rgba(0,0,0,0.05);
-          border-radius: 2px;
+          box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       `}</style>
         </div>
