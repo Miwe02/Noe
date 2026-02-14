@@ -275,6 +275,11 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="penalty-overlay"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setPenaltyStage("none");
+                    setPenaltyClicks(0);
+                  }}
                 >
                   <div className="penalty-content">
                     <img
