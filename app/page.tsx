@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
-  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "m3" | "final">("intro");
+  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final">("intro");
+  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
 
   if (showIntro) {
     return <EnvelopeIntro onComplete={() => setShowIntro(false)} />;
@@ -88,7 +89,14 @@ export default function Home() {
             <h2>¿Sabes que me gustas mucho? 😻</h2>
             <div className="button-group">
               <button className="btn-yes">Sí clarooo</button>
-              <button className="btn-no">No :c</button>
+              <motion.button
+                className="btn-no"
+                animate={{ x: noButtonPos.x, y: noButtonPos.y }}
+                onMouseEnter={moveButton}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                No :c
+              </motion.button>
             </div>
           </motion.div>
         )}
