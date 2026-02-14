@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import EnvelopeIntro from "@/components/EnvelopeIntro";
+import FloatingItems from "@/components/FloatingItems";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
 
   return (
     <main>
+      <FloatingItems />
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
