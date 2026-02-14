@@ -15,6 +15,9 @@ export default function Home() {
   const [noClicks2, setNoClicks2] = useState(0);
   const [penaltyClicks, setPenaltyClicks] = useState(0);
   const [penaltyStage, setPenaltyStage] = useState<"none" | "angry" | "gun">("none");
+  const [hasMoved1, setHasMoved1] = useState(false);
+  const [hasMoved2, setHasMoved2] = useState(false);
+  const [hasMoved3, setHasMoved3] = useState(false);
 
   if (showIntro) {
     return <EnvelopeIntro onComplete={() => setShowIntro(false)} />;
@@ -29,23 +32,27 @@ export default function Home() {
   };
 
   const moveButton = () => {
-    // Smaller range to keep it within common screen bounds
-    const randomX = Math.random() * 160 - 80; // -80 to 80
-    const randomY = Math.random() * 160 - 80; // -80 to 80
+    const factor = hasMoved1 ? 1 : 3;
+    const randomX = (Math.random() * 160 - 80) * factor;
+    const randomY = (Math.random() * 160 - 80) * factor;
     setNoButtonPos({ x: randomX, y: randomY });
+    if (!hasMoved1) setHasMoved1(true);
   };
 
   const moveButton2 = () => {
-    // Larger displacement for stage 2
-    const randomX = Math.random() * 400 - 200; // -200 to 200
-    const randomY = Math.random() * 400 - 200; // -200 to 200
+    const factor = hasMoved2 ? 1 : 3;
+    const randomX = (Math.random() * 400 - 200) * factor;
+    const randomY = (Math.random() * 400 - 200) * factor;
     setNoButtonPos2({ x: randomX, y: randomY });
+    if (!hasMoved2) setHasMoved2(true);
   };
 
   const moveButton3 = () => {
-    const randomX = Math.random() * 400 - 200; // Match Stage 2 range (-200 to 200)
-    const randomY = Math.random() * 400 - 200; // Match Stage 2 range (-200 to 200)
+    const factor = hasMoved3 ? 1 : 3;
+    const randomX = (Math.random() * 400 - 200) * factor;
+    const randomY = (Math.random() * 400 - 200) * factor;
     setNoButtonPos3({ x: randomX, y: randomY });
+    if (!hasMoved3) setHasMoved3(true);
   };
 
   const handleNoClick1 = () => {
