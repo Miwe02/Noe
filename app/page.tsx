@@ -85,7 +85,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="content-wrapper"
           >
-            <h2>¿Sabes que me gustas mucho? 😍</h2>
+            <h2>¿Sabes que me gustas mucho? 😻</h2>
             <div className="button-group">
               <button className="btn-yes">Sí clarooo</button>
               <button className="btn-no">No :c</button>
