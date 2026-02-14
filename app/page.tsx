@@ -9,6 +9,7 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final" | "stage2">("intro");
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
+  const [noButtonPos2, setNoButtonPos2] = useState({ x: 0, y: 0 });
   const [noClicks, setNoClicks] = useState(0);
 
   if (showIntro) {
@@ -26,6 +27,13 @@ export default function Home() {
     const randomX = Math.random() * 200 - 100;
     const randomY = Math.random() * 200 - 100;
     setNoButtonPos({ x: randomX, y: randomY });
+  };
+
+  const moveButton2 = () => {
+    // Larger displacement for the second unclickable button
+    const randomX = Math.random() * 600 - 300; // -300px to 300px
+    const randomY = Math.random() * 600 - 300; // -300px to 300px
+    setNoButtonPos2({ x: randomX, y: randomY });
   };
 
   const handleNoClick = () => {
@@ -132,7 +140,14 @@ export default function Home() {
             <h2>Para mí ser feliz no tenía significado hasta que te conocí, lo sabías? ✨</h2>
             <div className="button-group">
               <button className="btn-yes">Sí miamor</button>
-              <button className="btn-no">Prefería no saberlo</button>
+              <motion.button
+                className="btn-no"
+                animate={{ x: noButtonPos2.x, y: noButtonPos2.y }}
+                onMouseEnter={moveButton2}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                Prefería no saberlo
+              </motion.button>
             </div>
           </motion.div>
         )}
