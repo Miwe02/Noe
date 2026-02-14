@@ -11,7 +11,8 @@ export default function Home() {
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
   const [noButtonPos2, setNoButtonPos2] = useState({ x: 0, y: 0 });
   const [noButtonPos3, setNoButtonPos3] = useState({ x: 0, y: 0 });
-  const [noClicks, setNoClicks] = useState(0);
+  const [noClicks1, setNoClicks1] = useState(0);
+  const [noClicks2, setNoClicks2] = useState(0);
   const [penaltyClicks, setPenaltyClicks] = useState(0);
   const [penaltyStage, setPenaltyStage] = useState<"none" | "angry" | "gun">("none");
 
@@ -47,11 +48,21 @@ export default function Home() {
     setNoButtonPos3({ x: randomX, y: randomY });
   };
 
-  const handleNoClick = () => {
-    setNoClicks((prev) => {
+  const handleNoClick1 = () => {
+    setNoClicks1((prev) => {
       const updated = prev + 1;
-      if (updated >= 1) { // Advance on FIRST click
+      if (updated >= 2) { // Now requires 2 clicks
         setStage("stage2");
+      }
+      return updated;
+    });
+  };
+
+  const handleNoClick2 = () => {
+    setNoClicks2((prev) => {
+      const updated = prev + 1;
+      if (updated >= 2) { // Now requires 2 clicks
+        setStage("stage3");
       }
       return updated;
     });
@@ -149,7 +160,7 @@ export default function Home() {
                     className="btn-no"
                     animate={{ x: noButtonPos.x, y: noButtonPos.y }}
                     onMouseEnter={moveButton}
-                    onClick={handleNoClick}
+                    onClick={handleNoClick1}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     No :c
@@ -174,7 +185,7 @@ export default function Home() {
                     className="btn-no"
                     animate={{ x: noButtonPos2.x, y: noButtonPos2.y }}
                     onMouseEnter={moveButton2}
-                    onClick={() => setStage("stage3")}
+                    onClick={handleNoClick2}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     Prefería no saberlo
