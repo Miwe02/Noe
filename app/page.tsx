@@ -43,15 +43,15 @@ export default function Home() {
   };
 
   const moveButton3 = () => {
-    const randomX = Math.random() * 200 - 100;
-    const randomY = Math.random() * 200 - 100;
+    const randomX = Math.random() * 400 - 200; // Match Stage 2 range (-200 to 200)
+    const randomY = Math.random() * 400 - 200; // Match Stage 2 range (-200 to 200)
     setNoButtonPos3({ x: randomX, y: randomY });
   };
 
   const handleNoClick1 = () => {
     setNoClicks1((prev) => {
       const updated = prev + 1;
-      if (updated >= 2) { // Now requires 2 clicks
+      if (updated >= 1) { // back to 1 click
         setStage("stage2");
       }
       return updated;
@@ -61,7 +61,7 @@ export default function Home() {
   const handleNoClick2 = () => {
     setNoClicks2((prev) => {
       const updated = prev + 1;
-      if (updated >= 2) { // Now requires 2 clicks
+      if (updated >= 1) { // back to 1 click
         setStage("stage3");
       }
       return updated;
@@ -71,7 +71,7 @@ export default function Home() {
   const handleFinalNoClick = () => {
     setPenaltyClicks((prev) => {
       const updated = prev + 1;
-      if (updated >= 3) {
+      if (updated >= 2) { // Now requires only 2 clicks
         setPenaltyStage("angry");
         setTimeout(() => {
           setPenaltyStage("none");
