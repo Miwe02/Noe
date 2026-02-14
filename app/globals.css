@@ -81,13 +81,13 @@ button {
 }
 
 .btn-yes {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
 }
 
 .btn-yes:hover {
   transform: scale(1.1);
-  background: #ff758f;
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
 }
 
 .btn-no {
