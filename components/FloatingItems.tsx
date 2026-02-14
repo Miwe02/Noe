@@ -110,7 +110,7 @@ export default function FloatingItems() {
           width: 100vw;
           height: 100vh;
           pointer-events: none;
-          z-index: -1;
+          z-index: 2000;
           overflow: hidden;
           margin: 0;
           padding: 0;
