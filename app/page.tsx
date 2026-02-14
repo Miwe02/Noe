@@ -36,9 +36,9 @@ export default function Home() {
   };
 
   const moveButton2 = () => {
-    // Larger but still constrained displacement
-    const randomX = Math.random() * 300 - 150; // -150 to 150
-    const randomY = Math.random() * 300 - 150; // -150 to 150
+    // Larger displacement for stage 2
+    const randomX = Math.random() * 400 - 200; // -200 to 200
+    const randomY = Math.random() * 400 - 200; // -200 to 200
     setNoButtonPos2({ x: randomX, y: randomY });
   };
 
@@ -160,7 +160,7 @@ export default function Home() {
                     className="btn-no"
                     initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos.x, y: noButtonPos.y }}
-                    onMouseEnter={moveButton}
+                    onMouseMove={moveButton}
                     onClick={handleNoClick1}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -186,7 +186,7 @@ export default function Home() {
                     className="btn-no"
                     initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos2.x, y: noButtonPos2.y }}
-                    onMouseEnter={moveButton2}
+                    onMouseMove={moveButton2}
                     onClick={handleNoClick2}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -210,7 +210,7 @@ export default function Home() {
                     className="btn-no"
                     initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos3.x, y: noButtonPos3.y }}
-                    onMouseEnter={moveButton3}
+                    onMouseMove={moveButton3}
                     onClick={handleFinalNoClick}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -264,7 +264,7 @@ export default function Home() {
               >
                 <div className="penalty-content">
                   <img
-                    src="/angry-cat.webp"
+                    src="/cat-penalty.webp"
                     alt="Angry Cat Template"
                   />
                   <h3>Opción incorrecta, escoje de nuevo</h3>
