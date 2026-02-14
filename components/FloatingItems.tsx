@@ -61,11 +61,9 @@ export default function FloatingItems() {
     return (
         <div className="floating-container">
             {items.map((item) => (
-                <motion.img
+                <motion.div
                     key={item.id}
-                    src={item.src}
-                    alt="floating deco"
-                    className="floating-item"
+                    className="heart-wrapper"
                     initial={{
                         x: `${item.startX}vw`,
                         y: `${item.startY}vh`,
@@ -76,7 +74,7 @@ export default function FloatingItems() {
                         x: `${item.endX}vw`,
                         y: `${item.endY}vh`,
                         rotate: 360,
-                        opacity: 0.6
+                        opacity: 0.8
                     }}
                     transition={{
                         duration: item.duration,
@@ -86,10 +84,19 @@ export default function FloatingItems() {
                     }}
                     style={{
                         position: "absolute",
-                        width: item.size,
-                        height: "auto",
+                        width: item.size * 1.5,
+                        height: item.size * 1.5,
                     }}
-                />
+                >
+                    <div className="heart-shape">
+                        <img
+                            src={item.src}
+                            alt="floating deco"
+                            className="floating-item"
+                            style={{ width: item.size }}
+                        />
+                    </div>
+                </motion.div>
             ))}
 
             <style jsx>{`
@@ -103,8 +110,24 @@ export default function FloatingItems() {
           z-index: -1;
           overflow: hidden;
         }
+        .heart-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .heart-shape {
+          width: 100%;
+          height: 100%;
+          background: white;
+          clip-path: polygon(50% 15%, 85% 5%, 100% 30%, 100% 50%, 50% 95%, 0% 50%, 0% 30%, 15% 5%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
         .floating-item {
-          filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+          height: auto;
+          border-radius: 50%;
         }
       `}</style>
         </div>
