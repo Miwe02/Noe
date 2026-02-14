@@ -203,7 +203,7 @@ export default function Home() {
               >
                 <h2>Quieres pasar el resto de nuestras vidas juntos? ❤️</h2>
                 <div className="button-group">
-                  <button className="btn-yes" onClick={() => setStage("success")}>Sí, te amo</button>
+                  <button className="btn-yes" onClick={() => { setStage("success"); setPenaltyStage("none"); }}>Sí, te amo</button>
                   <motion.button
                     className="btn-no"
                     animate={{ x: noButtonPos3.x, y: noButtonPos3.y }}
@@ -223,15 +223,16 @@ export default function Home() {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1.2, ease: "easeOut" }}
-                className="content-wrapper success-content"
+                className="content-wrapper"
               >
-                <h2 className="success-message">
+                <h2>
                   Gracias por tanto mi amor, pronto estaremos juntos, feliz San Valentín :3
                 </h2>
-                <div className="signature">
-                  <p>Siempré tuyo,</p>
-                  <p className="signature-name">Miwe</p>
-                </div>
+                <p className="teaser-text" style={{ cursor: "default", opacity: 1, fontSize: "1.8rem" }}>
+                  Siempre tuyo,
+                </p>
+                <h1>Miwe</h1>
+
                 <button
                   className="replay-btn"
                   onClick={() => {
@@ -240,6 +241,7 @@ export default function Home() {
                     setNoClicks1(0);
                     setNoClicks2(0);
                     setPenaltyClicks(0);
+                    setPenaltyStage("none");
                   }}
                 >
                   Volver a ver
