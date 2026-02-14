@@ -20,6 +20,12 @@ export default function Home() {
     else if (stage === "m2") setStage("final");
   };
 
+  const moveButton = () => {
+    const randomX = Math.random() * 200 - 100;
+    const randomY = Math.random() * 200 - 100;
+    setNoButtonPos({ x: randomX, y: randomY });
+  };
+
   return (
     <main>
       <FloatingItems />
