@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
-  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final" | "stage2" | "stage3">("intro");
+  const [stage, setStage] = useState<"intro" | "m1" | "m2" | "final" | "stage2" | "stage3" | "success">("intro");
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
   const [noButtonPos2, setNoButtonPos2] = useState({ x: 0, y: 0 });
   const [noButtonPos3, setNoButtonPos3] = useState({ x: 0, y: 0 });
@@ -140,7 +140,7 @@ export default function Home() {
                 className="content-wrapper"
                 onClick={nextStage}
               >
-                <h2>Eres muy  vida</h2>
+                <h2>muy  vida</h2>
               </motion.div>
             )}
 
@@ -203,7 +203,7 @@ export default function Home() {
               >
                 <h2>Quieres pasar el resto de nuestras vidas juntos? 💍</h2>
                 <div className="button-group">
-                  <button className="btn-yes">Sí, te amo</button>
+                  <button className="btn-yes" onClick={() => setStage("success")}>Sí, te amo</button>
                   <motion.button
                     className="btn-no"
                     animate={{ x: noButtonPos3.x, y: noButtonPos3.y }}
