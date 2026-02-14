@@ -62,11 +62,11 @@ export default function Home() {
       const updated = prev + 1;
       if (updated >= 3) {
         setPenaltyStage("angry");
-        setTimeout(() => setPenaltyStage("gun"), 1000);
+        setTimeout(() => setPenaltyStage("gun"), 3000);
         setTimeout(() => {
           setPenaltyStage("none");
           setPenaltyClicks(0);
-        }, 6000);
+        }, 8000);
       }
       return updated;
     });
