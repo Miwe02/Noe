@@ -72,7 +72,7 @@ export default function Home() {
     setPenaltyClicks((prev) => {
       const updated = prev + 1;
       if (updated >= 3) {
-        setPenaltyStage("angry"); // We'll just use one stage now
+        setPenaltyStage("angry");
         setTimeout(() => {
           setPenaltyStage("none");
           setPenaltyClicks(0);
