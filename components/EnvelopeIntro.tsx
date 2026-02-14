@@ -143,7 +143,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     align-items: center;
                     animation:
                         riseLetter 1.5s ease-out forwards 4.2s,
-                        bringFront 0.1s forwards 4.5s,
+                        bringFront 0.1s forwards 4.4s,
                         zoomFull 1.6s ease-in-out forwards 6s;
                 }
 
