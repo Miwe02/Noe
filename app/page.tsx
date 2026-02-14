@@ -101,7 +101,7 @@ export default function Home() {
             className="content-wrapper"
             onClick={nextStage}
           >
-            <h2>Eres el amor de mi vida</h2>
+            <h2>Eres muy  vida</h2>
           </motion.div>
         )}
 

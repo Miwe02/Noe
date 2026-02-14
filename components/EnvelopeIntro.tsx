@@ -1,156 +1,186 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 interface EnvelopeIntroProps {
     onComplete: () => void;
 }
 
 export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
-    const [phase, setPhase] = useState<"entry" | "open" | "reveal">("entry");
-
     useEffect(() => {
-        // Stage 1: Entry from left to center (slower: 3s)
-        const timer1 = setTimeout(() => {
-            setPhase("open");
-        }, 3000);
-
-        // Stage 2: Open flap (slower: 2s)
-        const timer2 = setTimeout(() => {
-            setPhase("reveal");
-        }, 6000);
-
-        // Stage 3: Complete reveal (slower: 2s after reveal starts)
-        const timer3 = setTimeout(() => {
+        // The total animation time is roughly 6.6s (5s delay + 1.6s zoom)
+        const timer = setTimeout(() => {
             onComplete();
-        }, 8500);
+        }, 6600);
 
-        return () => {
-            clearTimeout(timer1);
-            clearTimeout(timer2);
-            clearTimeout(timer3);
-        };
+        return () => clearTimeout(timer);
     }, [onComplete]);
 
     return (
         <div className="envelope-container">
-            <AnimatePresence>
-                {phase !== "reveal" && (
-                    <motion.div
-                        className="envelope-wrapper"
-                        initial={{ x: "-120vw", rotate: -15 }}
-                        animate={{ x: 0, rotate: 0 }}
-                        exit={{ opacity: 0, scale: 2.5, transition: { duration: 1.5 } }}
-                        transition={{ duration: 3, ease: "easeInOut" }}
-                    >
-                        <div className="envelope">
-                            {/* Top Flap */}
-                            <motion.div
-                                className="flap"
-                                initial={{ rotateX: 0 }}
-                                animate={{ rotateX: phase === "open" ? 180 : 0 }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
-                            />
-                            {/* Envelope Body (Pocket) */}
-                            <div className="pocket" />
-                            {/* Paper inside */}
-                            <motion.div
-                                className="paper"
-                                initial={{ y: 0 }}
-                                animate={{ y: phase === "open" ? -60 : 0 }}
-                                transition={{ delay: 1, duration: 1 }}
-                            />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <div className="scene">
+                <div className="envelope">
+                    <div className="bottom-left"></div>
+                    <div className="bottom-right"></div>
+                    <div className="flap"></div>
+                </div>
+
+                <div className="letter"></div>
+                <div className="shadow"></div>
+            </div>
 
             <style jsx>{`
-        .envelope-container {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: white;
-          z-index: 1000;
-          overflow: hidden;
-        }
+                .envelope-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: linear-gradient(135deg, #1e7d3a, #145a28);
+                    overflow: hidden;
+                    perspective: 1400px;
+                    z-index: 1000;
+                }
 
-        .envelope-wrapper {
-          position: relative;
-          width: 70vw;
-          aspect-ratio: 3/2;
-          perspective: 2000px;
-        }
+                .scene {
+                    position: relative;
+                    width: 350px;
+                    height: 300px;
+                    transform-style: preserve-3d;
+                    animation: slideIn 2s ease-out forwards;
+                }
 
-        .envelope {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          background: #ffffff;
-          border: 1px solid #e0e0e0;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-          border-radius: 8px;
-          overflow: hidden;
-        }
+                @keyframes slideIn {
+                    0% { transform: translateX(-120vw) rotateY(20deg); }
+                    100% { transform: translateX(0); }
+                }
 
-        .flap {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: #f8f9fa;
-          border-bottom: 2px solid #e9ecef;
-          z-index: 3;
-          transform-origin: top;
-          /* Removed triangle clip-path */
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+                .envelope {
+                    position: relative;
+                    width: 320px;
+                    height: 200px;
+                    background: linear-gradient(to bottom, #ffffff, #ececec);
+                    border-radius: 6px;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+                    z-index: 3;
+                    animation: fadeEnvelope 1.2s ease forwards;
+                    animation-delay: 5s;
+                }
 
-        .flap::after {
-          content: "";
-          width: 40px;
-          height: 4px;
-          background: #dee2e6;
-          border-radius: 2px;
-          position: absolute;
-          bottom: 20px;
-        }
+                @keyframes fadeEnvelope {
+                    to {
+                        opacity: 0;
+                        transform: translateY(50px);
+                    }
+                }
 
-        .pocket {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: #ffffff;
-          z-index: 2;
-          /* Removed triangle clip-path */
-        }
+                .bottom-left, .bottom-right {
+                    position: absolute;
+                    width: 50%;
+                    height: 100%;
+                    top: 0;
+                    background: linear-gradient(to bottom, #f5f5f5, #e5e5e5);
+                }
 
-        .paper {
-          position: absolute;
-          top: 15%;
-          left: 10%;
-          width: 80%;
-          height: 70%;
-          background: #f1f3f5;
-          z-index: 1;
-          box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-          border-radius: 4px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      `}</style>
+                .bottom-left {
+                    left: 0;
+                    clip-path: polygon(0 0, 100% 50%, 0 100%);
+                }
+
+                .bottom-right {
+                    right: 0;
+                    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+                }
+
+                .flap {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    transform-origin: top center;
+                    animation: openFlap 1.2s ease forwards;
+                    animation-delay: 2s;
+                }
+
+                .flap::before {
+                    content: "";
+                    position: absolute;
+                    border-left: 160px solid transparent;
+                    border-right: 160px solid transparent;
+                    border-top: 120px solid #f8f8f8;
+                    top: 0;
+                    left: 0;
+                    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3));
+                }
+
+                @keyframes openFlap {
+                    0% { transform: rotateX(0deg); }
+                    100% { transform: rotateX(-150deg); }
+                }
+
+                .letter {
+                    position: absolute;
+                    width: 280px;
+                    height: 170px;
+                    left: 45%;
+                    top: -15px;
+                    transform: translateX(-50%) translateY(40px) scale(1);
+                    background: linear-gradient(135deg, #004e92 0%, #000428 100%);
+                    border-radius: 8px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                    opacity: 0;
+                    z-index: 2;
+                    animation:
+                        showLetter 0.1s forwards 3.2s,
+                        riseLetter 1.3s ease forwards 3.2s,
+                        bringFront 0.1s forwards 3.5s,
+                        zoomFull 1.6s ease-in-out forwards 5s;
+                }
+
+                @keyframes showLetter {
+                    to { opacity: 1; }
+                }
+
+                @keyframes riseLetter {
+                    0% { transform: translateX(-50%) translateY(40px) scale(1); }
+                    100% { transform: translateX(-50%) translateY(-120px) scale(1); }
+                }
+
+                @keyframes bringFront {
+                    to { z-index: 5; }
+                }
+
+                @keyframes zoomFull {
+                    0% {
+                        transform: translateX(-50%) translateY(-120px) scale(1);
+                        border-radius: 8px;
+                    }
+                    100% {
+                        top: 50%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(-50%) scale(10);
+                        border-radius: 0;
+                    }
+                }
+
+                .shadow {
+                    position: absolute;
+                    width: 300px;
+                    height: 30px;
+                    background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%, transparent 80%);
+                    bottom: -40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    filter: blur(6px);
+                    animation: fadeShadow 1.2s ease forwards 5s;
+                }
+
+                @keyframes fadeShadow {
+                    to { opacity: 0; }
+                }
+            `}</style>
         </div>
     );
 }
