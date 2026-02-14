@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const IMAGES = [
-    "https://w7.pngwing.com/pngs/13/441/png-transparent-cat-kitten-cat-image-file-formats-animals-cat-like-mammal-thumbnail.png",
-    "https://w7.pngwing.com/pngs/605/219/png-transparent-fairy-tinker-bell-drawing-cartoon-tinkerbell-hair-vertebrate-adult-color-thumbnail.png",
-    "https://w7.pngwing.com/pngs/627/35/png-transparent-dolphin-kavaii-marine-mammal-dolphin-mammal-animals-chibi-thumbnail.png",
+    "https://img.freepik.com/vector-premium/ilustracion-gato-lindo-gato-kawaii-chibi-estilo-dibujo-vectorial-dibujos-animados-gato_622550-37.jpg",
+    "https://img.freepik.com/fotos-premium/chica-dibujos-animados-cabello-rosa-vestido-azul-sentada-superficie-blanca-generativa-ai_900833-70260.jpg",
+    "https://img.freepik.com/vector-gratis/icono-vectorial-dibujos-animados-delfines-lindos-nadando-ilustracion-animales-icono-naturaleza-icono-plano-aislado_138676-12582.jpg",
 ];
 
 interface FloatingItem {
