@@ -158,6 +158,7 @@ export default function Home() {
                   <button className="btn-yes" onClick={() => setStage("stage2")}>Sí clarooo</button>
                   <motion.button
                     className="btn-no"
+                    initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos.x, y: noButtonPos.y }}
                     onMouseEnter={moveButton}
                     onClick={handleNoClick1}
@@ -183,6 +184,7 @@ export default function Home() {
                   <button className="btn-yes" onClick={() => setStage("stage3")}>Sí miamor</button>
                   <motion.button
                     className="btn-no"
+                    initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos2.x, y: noButtonPos2.y }}
                     onMouseEnter={moveButton2}
                     onClick={handleNoClick2}
@@ -206,6 +208,7 @@ export default function Home() {
                   <button className="btn-yes" onClick={() => { setStage("success"); setPenaltyStage("none"); }}>Sí, te amo</button>
                   <motion.button
                     className="btn-no"
+                    initial={{ x: 0, y: 0 }}
                     animate={{ x: noButtonPos3.x, y: noButtonPos3.y }}
                     onMouseEnter={moveButton3}
                     onClick={handleFinalNoClick}
@@ -261,7 +264,7 @@ export default function Home() {
               >
                 <div className="penalty-content">
                   <img
-                    src="https://raw.githubusercontent.com/Miwe02/Noe/main/public/angry-cat.webp"
+                    src="/angry-cat.webp"
                     alt="Angry Cat Template"
                   />
                   <h3>Opción incorrecta, escoje de nuevo</h3>
