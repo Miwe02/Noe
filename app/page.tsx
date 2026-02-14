@@ -140,7 +140,7 @@ export default function Home() {
                 className="content-wrapper"
                 onClick={nextStage}
               >
-                <h2>muy  vida</h2>
+                <h2>Eres muy especial en mi vida</h2>
               </motion.div>
             )}
 
@@ -201,7 +201,7 @@ export default function Home() {
                 animate={{ y: 0, opacity: 1 }}
                 className="content-wrapper"
               >
-                <h2>Quieres pasar el resto de nuestras vidas juntos? 💍</h2>
+                <h2>Quieres pasar el resto de nuestras vidas juntos?</h2>
                 <div className="button-group">
                   <button className="btn-yes" onClick={() => setStage("success")}>Sí, te amo</button>
                   <motion.button
@@ -234,6 +234,22 @@ export default function Home() {
                   />
                   <h3>Opción incorrecta, escoje de nuevo</h3>
                 </div>
+                <div className="signature">
+                  <p>Siempré tuyo,</p>
+                  <p className="signature-name">Miwe</p>
+                </div>
+                <button
+                  className="replay-btn"
+                  onClick={() => {
+                    setShowIntro(true);
+                    setStage("intro");
+                    setNoClicks1(0);
+                    setNoClicks2(0);
+                    setPenaltyClicks(0);
+                  }}
+                >
+                  Volver a ver
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
