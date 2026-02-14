@@ -12,8 +12,10 @@ const IMAGES = [
 interface FloatingItem {
     id: number;
     src: string;
-    initialX: number;
-    initialY: number;
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
     size: number;
     duration: number;
     delay: number;
@@ -23,16 +25,36 @@ export default function FloatingItems() {
     const [items, setItems] = useState<FloatingItem[]>([]);
 
     useEffect(() => {
-        // We generate the items on the client to avoid hydration mismatch with Math.random()
-        const newItems = Array.from({ length: 18 }).map((_, i) => ({
-            id: i,
-            src: IMAGES[i % IMAGES.length],
-            initialX: Math.random() * 100,
-            initialY: Math.random() * 100,
-            size: Math.random() * 80 + 40,
-            duration: Math.random() * 15 + 15,
-            delay: Math.random() * -30, // Start at different points in their animation cycle
-        }));
+        const newItems = Array.from({ length: 25 }).map((_, i) => {
+            const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+            let startX, startY, endX, endY;
+
+            if (side === 0) { // Start top
+                startX = Math.random() * 100; startY = -20;
+                endX = Math.random() * 100; endY = 120;
+            } else if (side === 1) { // Start right
+                startX = 120; startY = Math.random() * 100;
+                endX = -20; endY = Math.random() * 100;
+            } else if (side === 2) { // Start bottom
+                startX = Math.random() * 100; startY = 120;
+                endX = Math.random() * 100; endY = -20;
+            } else { // Start left
+                startX = -20; startY = Math.random() * 100;
+                endX = 120; endY = Math.random() * 100;
+            }
+
+            return {
+                id: i,
+                src: IMAGES[i % IMAGES.length],
+                startX,
+                startY,
+                endX,
+                endY,
+                size: Math.random() * 20 + 25, // 25px to 45px
+                duration: Math.random() * 4 + 4, // 4s to 8s
+                delay: Math.random() * 10,
+            };
+        });
         setItems(newItems);
     }, []);
 
@@ -44,23 +66,26 @@ export default function FloatingItems() {
                     src={item.src}
                     alt="floating deco"
                     className="floating-item"
-                    initial={{ opacity: 0 }}
+                    initial={{
+                        x: `${item.startX}vw`,
+                        y: `${item.startY}vh`,
+                        rotate: 0,
+                        opacity: 0
+                    }}
                     animate={{
-                        opacity: 0.4,
-                        x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-                        y: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-                        rotate: [0, 20, -20, 0],
+                        x: `${item.endX}vw`,
+                        y: `${item.endY}vh`,
+                        rotate: 360,
+                        opacity: 0.6
                     }}
                     transition={{
                         duration: item.duration,
                         repeat: Infinity,
                         delay: item.delay,
-                        ease: "easeInOut",
+                        ease: "linear",
                     }}
                     style={{
                         position: "absolute",
-                        top: `${item.initialY}%`,
-                        left: `${item.initialX}%`,
                         width: item.size,
                         height: "auto",
                     }}
@@ -79,7 +104,7 @@ export default function FloatingItems() {
           overflow: hidden;
         }
         .floating-item {
-          filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+          filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
       `}</style>
         </div>
