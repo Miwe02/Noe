@@ -214,6 +214,11 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                     font-size: 24px;
                     color: white;
                     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    animation: fadeOutText 0.5s ease forwards 6s;
+                }
+
+                @keyframes fadeOutText {
+                    to { opacity: 0; }
                 }
 
                 @keyframes riseLetter {
@@ -236,6 +241,8 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
 
                 @keyframes zoomFull {
                     0% {
+                        top: -15px;
+                        left: 45%;
                         transform: translateX(-50%) translateY(-150px) scale(1);
                         border-radius: 8px;
                     }
