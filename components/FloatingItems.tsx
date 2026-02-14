@@ -25,22 +25,23 @@ export default function FloatingItems() {
     const [items, setItems] = useState<FloatingItem[]>([]);
 
     useEffect(() => {
-        const newItems = Array.from({ length: 25 }).map((_, i) => {
+        const newItems = Array.from({ length: 12 }).map((_, i) => {
             const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
             let startX, startY, endX, endY;
 
+            // Using wider bounds (-40 to 140) to ensure they are well off-screen
             if (side === 0) { // Start top
-                startX = Math.random() * 100; startY = -20;
-                endX = Math.random() * 100; endY = 120;
+                startX = Math.random() * 100; startY = -40;
+                endX = Math.random() * 100; endY = 140;
             } else if (side === 1) { // Start right
-                startX = 120; startY = Math.random() * 100;
-                endX = -20; endY = Math.random() * 100;
+                startX = 140; startY = Math.random() * 100;
+                endX = -40; endY = Math.random() * 100;
             } else if (side === 2) { // Start bottom
-                startX = Math.random() * 100; startY = 120;
-                endX = Math.random() * 100; endY = -20;
+                startX = Math.random() * 100; startY = 140;
+                endX = Math.random() * 100; endY = -40;
             } else { // Start left
-                startX = -20; startY = Math.random() * 100;
-                endX = 120; endY = Math.random() * 100;
+                startX = -40; startY = Math.random() * 100;
+                endX = 140; endY = Math.random() * 100;
             }
 
             return {
@@ -50,8 +51,8 @@ export default function FloatingItems() {
                 startY,
                 endX,
                 endY,
-                size: Math.random() * 20 + 25, // 25px to 45px
-                duration: Math.random() * 4 + 4, // 4s to 8s
+                size: Math.random() * 20 + 20, // 20px to 40px
+                duration: Math.random() * 10 + 15, // 15s to 25s
                 delay: Math.random() * 10,
             };
         });
@@ -68,7 +69,7 @@ export default function FloatingItems() {
                         x: `${item.startX}vw`,
                         y: `${item.startY}vh`,
                         rotate: 0,
-                        opacity: 0
+                        opacity: 0.8
                     }}
                     animate={{
                         x: `${item.endX}vw`,
@@ -86,6 +87,8 @@ export default function FloatingItems() {
                         position: "absolute",
                         width: item.size * 1.5,
                         height: item.size * 1.5,
+                        left: 0,
+                        top: 0
                     }}
                 >
                     <div className="heart-shape">
@@ -109,6 +112,8 @@ export default function FloatingItems() {
           pointer-events: none;
           z-index: -1;
           overflow: hidden;
+          margin: 0;
+          padding: 0;
         }
         .heart-wrapper {
           display: flex;
@@ -126,6 +131,7 @@ export default function FloatingItems() {
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .floating-item {
+          max-width: 80%;
           height: auto;
           border-radius: 50%;
         }
