@@ -189,7 +189,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   className="content-wrapper"
                 >
-                  <h2>Para mí ser feliz no tenía significado hasta que te conocí, lo sabías? ✨</h2>
+                  <h2>Para mí, ser feliz no tenía significado hasta que te conocí, lo sabías? ✨</h2>
                   <div className="button-group">
                     <button className="btn-yes" onClick={() => setStage("stage3")}>Sí miamor</button>
                     <motion.button
